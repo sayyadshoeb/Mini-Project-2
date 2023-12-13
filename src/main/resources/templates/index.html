@@ -1,0 +1,143 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+	  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Add User</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       
+        <li class="nav-item">
+          <a class="nav-link" href="/users">View User</a>
+        </li>
+       
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Contact Us</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+   	<div class="container mt-5">
+	       <h2> Reports Application</h2>
+		  
+		
+	<form th:action="@{/filter-data}" th:object="${search}" method="post">
+		 <table>
+				  <tr>
+					  <td>
+					<select class="form-control" th:field="*{planname}">		  
+					  <option value="">-Plan Name-</option>
+					 <option th:each="name : ${planname}" th:value="${name}" th:text="${name}">  </option>		 
+					 </select>
+					  </td>
+						
+						<td>	
+					<select class="form-control" th:field="*{planstatus}">		  
+					  <option value="">-Plan Status-</option>
+					 <option th:each="status : ${planstatus}" th:value="${status}" th:text="${status}">  </option>		 
+					 </select>
+					  </td>
+						
+						<td>
+							<select class="form-control" th:field="*{gender}">
+								<option value="">Gender:</option>
+								<option value="male">Male</option>
+								<option value="female">Fe-Male</option>
+							</select>
+						</td>
+			
+			          <td>
+						  <input type="date" class="form-control" th:field="*{startdate}"/>					  
+					  </td>
+					  <td>
+						 <input type="date" class="form-control" th:field="*{enddate}"/>
+					  </td>
+					   <td>
+						 <input type="submit" value="submit" class="btn btn-primary"/>
+					  </td>
+					  </tr>
+		</table>
+		
+		
+	</form>   
+	</div>
+		<div class="container mt-5">
+		<h3>View Citizen Plan Data</h3> 
+		
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Plan Name</th>
+					<th>Plan Status</th>
+					<th>SSN</th>
+					<th>PhNo</th>
+					
+					
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="citizen: ${citizens}">
+					<td th:text="${citizen.name}"></td>
+				    <td th:text="${citizen.gender}"></td>
+					<td th:text="${citizen.planname}"></td>
+					<td th:text="${citizen.planstatus}"></td>
+					<td th:text="${citizen.ssn}"></td>
+					<td th:text="${citizen.pnno}"></td>
+				
+
+
+
+				</tr>
+				<div th:if="${citizens==null or citizens.isEmpty()}">
+					<tr>
+						<td colspan="6" align="center" class="text-danger">No Record Found</td>
+					</tr>
+					
+				</div>
+			</tbody>
+			
+			
+		</table> 
+	</div>
+	<div class="container text-center">
+		<a th:href="@{/excel}" class="btn btn-primary">Excel</a>
+		<a th:href="@{/pdf}" class="btn btn-secondary">Pdf</a>
+
+		
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>
